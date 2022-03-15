@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cypress/browsers:node14.17.0-chrome91-ff89
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    working_directory: ~/cypress-circleci-template
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-deps-{{ .Branch }}
+            - v1-deps
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          # cache NPM modules and the folder with the Cypress binary
+          paths:
+            - ~/.cache # cache both yarn and Cypress
+      - run: npm cypress:run
+      - store_test_results:
+          path: cypress/reports/junit
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/reports
+      - store_artifacts:
+          path: cypress/screenshots
