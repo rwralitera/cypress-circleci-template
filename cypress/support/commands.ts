@@ -2,10 +2,6 @@
 /* eslint-disable no-restricted-syntax */
 import locators from '../utils/locators/locators';
 
-
-
-
-
 Cypress.Commands.add('apiLogin', (username: string, password: string) => {
   cy.session([username, password], () => {
     cy.request({
