@@ -6,11 +6,17 @@
   "scripts": {
     "format:code:staged": "pretty-quick --staged",
     "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "cypress:open:localhost": "cypress open --config-file localhost",
     "cypress:open:develop": "cypress open --config-file develop",
-    "cypress:run": "cypress run",
+    "cypress:run:localhost": "cypress open  --env configFile localhost",
+    "cypress:run:develop": "cypress run --browser chrome  --env configFile develop",
     "cypress:run:dashboard": "cypress run --record --key CYPRESS_DASHBOARD_KEY",
-    "reinstall:local": "shx rm -rf package-lock.lock && shx rm -rf node_modules && npm cache clean --force && npm install"
+    "format:code:diff:develop": "pretty-quick --branch develop",
+    "format:code:diff:master": "pretty-quick --branch master",
+    "format:check:diff:develop": "pretty-quick --check --branch develop",
+    "format:check:diff:master": "pretty-quick --check --branch master",
+    "reinstall": "shx rm -rf yarn.lock && shx rm -rf node_modules && yarn cache clean --force && yarn install"
   },
   "repository": {
     "type": "git",
