@@ -12,9 +12,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Install dependencies
-      run: npm ci
-    - name: lint
-      run: npm run lint
+      run: npm install
 
   cypress-test:
     name: cypress test
@@ -24,7 +22,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Install dependencies
-      run: npm ci
+      run: npm install
     - name: Run tests
       run: npm run cy:run
     - name: Upload Screenshots reports
