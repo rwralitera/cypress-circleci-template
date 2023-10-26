@@ -1,143 +1,221 @@
-# cypress project model
+Welcome file
+Welcome file
+
+# Modèle de projet Cypress
 
 ## Introduction
 
-Il est souvent laborieux de mettre en place toutes les configurations et les bonnes pratiques en place à chaque fois. Soit cela nous prend trop de temps, soit on oublie des choses.
+Mettre en place toutes les configurations et les bonnes pratiques à chaque nouveau projet Cypress peut être fastidieux. Cela prend du temps et peut entraîner des oublis. Pour faciliter ce processus, je partage mon modèle de projet Cypress, qui sert de point de départ pour éviter de repartir de zéro à chaque fois.
 
-Je partage ici mon modèle de projet Cypress qui me sert de base de référence sans avoir à repartir de zéro à chaque fois.
+Ce modèle comprend les éléments suivants :
 
-Il contient notamment:
+- Une architecture Cypress préconfigurée.
+- Des modèles de fonctions et de commandes personnalisées Cypress prêts à l'emploi.
+- Une configuration préconfigurée pour l'intégration continue avec CircleCI.
+- Une configuration fonctionnelle des git hooks pour formater systématiquement le code.
+- Des exemples d'utilisation de Newman dans le cadre d'une intégration continue.
+- Des exemples de contrôle des débits réseau lors des tests.
+- La possibilité de lancer les tests dans un tableau de bord Cypress préconfiguré.
 
- - Une architecture Cypress préconfiguré
- - Des modèles de fonctions et de commandes personnalisés Cypress prêt à l'emploi
- - Une configuration CircleCI préconfiguré  pour l'intégration continue
- - Une configuration fonctionnelle de git hooks pour formater systématiquement le code
- - Des exemples d'utilisation de Newman dans une intégration continue
- - Des exemples d'utilisation de contrôle des débits du réseau lors des tests
- - Lancement des tests dans un Dashboard Cypress préconfiguré
-
-***NB***: Ce projet est juste un **MODELE**. De ce fait, il contient plusieurs exemples d'implémentations et des pratiques assez courantes mais il faudra l'adapter à votre application et votre environnement, ou même changer complètement les fonctions selon les besoins (faire du ***custom command cypress*** par exemple).
+**NB :** Ce projet est un modèle, il contient plusieurs exemples d'implémentations et des pratiques courantes. Vous devrez l'adapter à votre application et à votre environnement, voire personnaliser complètement les fonctions en fonction de vos besoins (par exemple, en créant des commandes Cypress personnalisées).
 
 ### Public cible
 
-Cet modèle sera utile pour tout développeur web et tout testeur cherchant à automatiser les tests d'applications web en utilisant Cypress.io ou Postman.
-Le niveau minimum **débutant ++** est requis car il faudra reconfigurer certains éléments pour l'adapter à chaque besoin.
+Ce modèle sera utile à tout développeur web et testeur souhaitant automatiser les tests d'applications web à l'aide de Cypress.io ou Postman. Un niveau de compétence minimum de **débutant ** est requis, car des ajustements seront nécessaires pour l'adapter à des besoins spécifiques.
 
-### Les principaux packages installés
+### Principaux packages installés
 
-Ce modèle contient déjà plusieurs packages, dont voici les plus importants:
+Ce modèle inclut déjà plusieurs packages importants, notamment :
 
 - [Cypress](https://www.cypress.io/)
-- [Newman](https://www.npmjs.com/package/newman) qui est Postman en ligne de commande
-- [ESLint](https://www.npmjs.com/package/eslint) et [Prettier](https://www.npmjs.com/package/prettier): analyse et formatage de code
-- [Husky](https://typicode.github.io/husky/#/): la gestion des [git hooks](https://git-scm.com/book/fr/v2/Personnalisation-de-Git-Crochets-Git)
-- [junit reporter](https://www.npmjs.com/package/mocha-junit-reporter): génération de rapports de tests sous junit
+- [Newman](https://www.npmjs.com/package/newman), qui est l'équivalent de Postman en ligne de commande.
+- [ESLint](https://www.npmjs.com/package/eslint) et [Prettier](https://www.npmjs.com/package/prettier) pour l'analyse et le formatage du code.
+- [Husky](https://typicode.github.io/husky/#/), pour la gestion des [git hooks](https://git-scm.com/book/fr/v2/Personnalisation-de-Git-Crochets-Git).
+- [junit reporter](https://www.npmjs.com/package/mocha-junit-reporter) pour générer des rapports de tests au format JUnit.
 
 ## Prérequis
 
-- Tout ordinateur : Mac, Windows, Linux
-- [Node 14.0.0+ (LTS)](https://nodejs.org/)
-- Installer [Visual Studio Code](https://code.visualstudio.com/download)
-- Installer [git](https://git-scm.com/)
-- Installer [Postman](https://www.postman.com/downloads/)
-- Un compte [GitHub](https://github.com/)
-- Un compte [CircleCI](https://circleci.com/vcs-authorize/) en se connectant avec votre compte **GitHub**
-- Un compte pour le [Dashboard Cypress.io](https://dashboard.cypress.io/login)
+Avant de commencer, assurez-vous d'avoir les éléments suivants :
 
-Vérifiez la version de Node et de npm dans votre terminal:
+- Un ordinateur (Mac, Windows, Linux).
+- [Node](https://nodejs.org/) installé.
+- [Visual Studio Code](https://code.visualstudio.com/download) installé.
+- [Git](https://git-scm.com/) installé.
+- [Postman](https://www.postman.com/downloads/) installé.
+- Un compte [GitHub](https://github.com/).
+- Un compte [CircleCI](https://circleci.com/vcs-authorize/) auquel vous vous connecterez avec votre compte GitHub.
+- Un compte pour le [Dashboard Cypress.io](https://dashboard.cypress.io/login).
 
-```
+Assurez-vous que Node et npm sont correctement installés en vérifiant leur version dans votre terminal :
+
+```bash
 $ node -v
-# exemple: v14.17.1
+# Exemple : v16.15.0
 $ npm -v
-# exemple: 6.14.13
-
+# Exemple : 8.5.5
 ```
 
-Afin d'obtenir le modèle et d'installer les dépendances NPM
-Connectez vous sur votre compte [Github](https://github.com/).
-Aller sur le projet: https://github.com/rwralitera/cypress-postman-template-circleci-githooks
+Pour obtenir le modèle et installer les dépendances NPM, suivez ces étapes :
 
-Ensuite, cliquez sur le bouton "**Utiliser ce modèle**"
-Puis donnez le nom que vous voulez à votre nouveau projet.
+1. Connectez-vous à votre compte [GitHub](https://github.com/).
+2. Accédez au projet : [lien vers le projet](https://github.com/rwralitera/cypress-postman-template-circleci-githooks).
+3. Cliquez sur le bouton "Utiliser ce modèle".
+4. Donnez un nom à votre nouveau projet.
+5. Clonez votre nouveau projet et installez les dépendances :
 
-Pensez ensuite à cloner votre nouveau projet pour pouvoir l'utiliser, et bien sure à installer les dépendances.
-
-Par exemple:
-```
+```bash
 git clone https://github.com/rwralitera/nom-projet
 cd nom-projet
 npm install
 ```
 
-### Vérification rapide  ✅
+### Vérification rapide ✅
 
-Vous pouvez tester l'installation en démarrant dans la fenêtre de terminal
+Pour tester l'installation, ouvrez votre terminal et exécutez la commande suivante :
 
-```
+```bash
 npx cypress:run
 ```
-et vous devriez voir dans Cypress exécuté tous les tests
+
+Vous devriez voir Cypress exécuter tous les tests avec succès.
 
 ## Configuration et ajustements
-Maintenant que vous avez le projet en main, il va falloir faire quelques modifications pour qu'il s'adapte parfaitement à votre environnement.
+
+Maintenant que vous avez le modèle de projet, vous devrez effectuer quelques modifications pour l'adapter à votre environnement.
 
 ### Configuration CircleCI
-Ce modèle de projet intègre déjà un fichier de configuration [config.yml](https://github.com/rwralitera/backup-cypress-postman-template-circleci-githooks/blob/master/.circleci/config.yml) qui lance automatiquement les tests à chaque push.
 
-Il reste juste à le lancer dans votre compte CircleCI.
-Pour cela:
+Ce modèle de projet intègre déjà un fichier de configuration [config.yml](https://github.com/rwralitera/backup-cypress-postman-template-circleci-githooks/blob/master/.circleci/config.yml), qui lance automatiquement les tests à chaque push. Pour configurer CircleCI :
 
- - Connectez vous sur votre **CircleCI**
- - Allez dans l'onglet **Projet**
- - Appuyez sur le bouton **Configurer le projet** correspondant au bon projet
+1. Connectez-vous à votre compte **CircleCI**.
+2. Accédez à l'onglet "Projet".
+3. Cliquez sur le bouton "Configurer le projet" correspondant au bon projet.
 
 ### Configuration Git Hooks
-L'exécution des git hooks se fait grâce au package Husky dont la configuration de lancement se trouve dans le fichier package.json:
-```
-"husky": {
-	"hooks": {
-		"pre-commit": "npm run format:code:staged",
-		"prepare-commit-msg": "sh scripts/prepare-commit-msg.sh ${HUSKY_GIT_PARAMS}"
-	}
-}
-```
 
-Comme vous pouvez le voir, il y a 2 étapes:
- - Le "**pre-commit**" qui va juste lancer [prettier](https://www.npmjs.com/package/prettier) sur tous les fichiers modifiés
- -  Le "**prepare-commit-msg**" qui va rajouter les initiales de celui qui modifie le commit [prepare-commit-msg.sh](https://github.com/rwralitera/backup-cypress-postman-template-circleci-githooks/blob/master/scripts/prepare-commit-msg.sh). 
+L'exécution des git hooks se fait grâce au package Husky, dont la configuration de lancement se trouve dans le fichier `package.json`. Vous trouverez deux étapes :
 
-La seule chose que vous pourriez avoir besoin de modifier, c'est peut être de rajouter ou supprimer des branches qui ne doivent pas lancer ce script:
-```
+- Le "pre-commit", qui exécute simplement [prettier](https://www.npmjs.com/package/prettier) sur tous les fichiers modifiés.
+- Le "prepare-commit-msg", qui ajoute les initiales de l'auteur du commit [prepare-commit-msg.sh](https://github.com/rwralitera/backup-cypress-postman-template-circleci-githooks/blob/master/scripts/prepare-commit-msg.sh).
+
+Vous pouvez éventuellement modifier les branches pour lesquelles ces étapes doivent être exécutées :
+
+```bash
 if [ -z "$BRANCHES_TO_SKIP" ]; then
 	BRANCHES_TO_SKIP=(develop)
 fi
 ```
-### Configuration dans les fichiers json
 
-Il faut faire une rechercher de mot clé **XXXXXXX** dans les fichiers de configurations. Puis les remplacer par les bonnes valeurs:
+### Configuration dans les fichiers JSON
 
- - Dans ***cypress.json***, il faut remplacer "**projectId**": "**ID_PROJET_DASHBOARD_CYPRESS**"
- - Dans ***develop.json***, il faut remplacer par le bon URL pour un environnement de développement
+Recherchez le mot-clé **XXXXXXX** dans les fichiers de configuration et remplacez-le par les valeurs appropriées :
+
+- Dans **_cypress.json_**, remplacez "**projectId**" par "**ID_PROJET_DASHBOARD_CYPRESS**".
+- Dans **_develop.json_**, mettez à jour l'URL pour correspondre à votre environnement de développement.
 
 ### Configuration dans les fichiers de code
-Il faut faire une rechercher de mot clé **FIXME** dans les fichiers de configurations. Puis les remplacer par les bonnes valeurs:
 
- - Dans le fichier ***command.ts***, c'est principalement les URL cibles à changer selon votre environnement.
- - Dans le fichier **waitLoader.ts**, il faut juste adapté le nom du sélecteur correspondant au chargement.
+Recherchez le mot-clé **FIXME** dans les fichiers de code et remplacez-le par les valeurs appropriées :
+
+- Dans le fichier **_command.ts_**, effectuez les ajustements nécessaires pour les URL cibles en fonction de votre environnement.
+- Dans le fichier **waitLoader.ts**, adaptez simplement le sélecteur correspondant au chargement.
 
 ### Configuration des badges
-Dans l'entête de ce fichier **READMDE.md** , n'oubliez pas de changer les liens des badges pour voir rapidement rapidement l'exécution dans CircleCI et aussi le Dashboard Cypress.
 
-## Demandes
+N'oubliez pas de mettre à jour les liens des badges dans l'en-tête de ce fichier **README.md** pour visualiser rapidement l
+Modèle de projet Cypress
+Introduction
+Mettre en place toutes les configurations et les bonnes pratiques à chaque nouveau projet Cypress peut être fastidieux. Cela prend du temps et peut entraîner des oublis. Pour faciliter ce processus, je partage mon modèle de projet Cypress, qui sert de point de départ pour éviter de repartir de zéro à chaque fois.
 
-N'hésitez pas à me contacter:
+Ce modèle comprend les éléments suivants :
 
- - Si vous avez des questions concernant ce modèle
- - Si vous avez des propositions d'améliorations
- - Si vous trouvez des Bugs (Oui ca peut arriver même pour un QA)
- - Ou tout simplement si vous avez besoin d'accompagnement
+Une architecture Cypress préconfigurée.
+Des modèles de fonctions et de commandes personnalisées Cypress prêts à l’emploi.
+Une configuration préconfigurée pour l’intégration continue avec CircleCI.
+Une configuration fonctionnelle des git hooks pour formater systématiquement le code.
+Des exemples d’utilisation de Newman dans le cadre d’une intégration continue.
+Des exemples de contrôle des débits réseau lors des tests.
+La possibilité de lancer les tests dans un tableau de bord Cypress préconfiguré.
+NB : Ce projet est un modèle, il contient plusieurs exemples d’implémentations et des pratiques courantes. Vous devrez l’adapter à votre application et à votre environnement, voire personnaliser complètement les fonctions en fonction de vos besoins (par exemple, en créant des commandes Cypress personnalisées).
 
-## Auteur
+Public cible
+Ce modèle sera utile à tout développeur web et testeur souhaitant automatiser les tests d’applications web à l’aide de Cypress.io ou Postman. Un niveau de compétence minimum de **débutant ** est requis, car des ajustements seront nécessaires pour l’adapter à des besoins spécifiques.
 
-William RALITERA est diplômé en tant qu'ingénieur en Réseaux et Télécommunications et travaille en tant que Lead QA. Il a travaillé sur dans plusieurs entreprises pour la mise en place de tests Cypress jusqu'à l'intégration CI. Il a parlé des bonnes pratiques d'utilisation ainsi que des stratégies d'automatisation de tests à adopter dans des conférences, a écrit des articles de blog sur les tests. Aujourd'hui, William utilise encore beaucoup Cypress dans les entreprises pour s'assurer que ses applications web fonctionnent toujours correctement.
+Principaux packages installés
+Ce modèle inclut déjà plusieurs packages importants, notamment :
+
+Cypress
+Newman, qui est l’équivalent de Postman en ligne de commande.
+ESLint et Prettier pour l’analyse et le formatage du code.
+Husky, pour la gestion des git hooks.
+junit reporter pour générer des rapports de tests au format JUnit.
+Prérequis
+Avant de commencer, assurez-vous d’avoir les éléments suivants :
+
+Un ordinateur (Mac, Windows, Linux).
+Node installé.
+Visual Studio Code installé.
+Git installé.
+Postman installé.
+Un compte GitHub.
+Un compte CircleCI auquel vous vous connecterez avec votre compte GitHub.
+Un compte pour le Dashboard Cypress.io.
+Assurez-vous que Node et npm sont correctement installés en vérifiant leur version dans votre terminal :
+
+$ node -v
+
+# Exemple : v16.15.0
+
+$ npm -v
+
+# Exemple : 8.5.5
+
+Pour obtenir le modèle et installer les dépendances NPM, suivez ces étapes :
+
+Connectez-vous à votre compte GitHub.
+Accédez au projet : lien vers le projet.
+Cliquez sur le bouton “Utiliser ce modèle”.
+Donnez un nom à votre nouveau projet.
+Clonez votre nouveau projet et installez les dépendances :
+git clone https://github.com/rwralitera/nom-projet
+cd nom-projet
+npm install
+Vérification rapide ✅
+Pour tester l’installation, ouvrez votre terminal et exécutez la commande suivante :
+
+npx cypress:run
+Vous devriez voir Cypress exécuter tous les tests avec succès.
+
+Configuration et ajustements
+Maintenant que vous avez le modèle de projet, vous devrez effectuer quelques modifications pour l’adapter à votre environnement.
+
+Configuration CircleCI
+Ce modèle de projet intègre déjà un fichier de configuration config.yml, qui lance automatiquement les tests à chaque push. Pour configurer CircleCI :
+
+Connectez-vous à votre compte CircleCI.
+Accédez à l’onglet “Projet”.
+Cliquez sur le bouton “Configurer le projet” correspondant au bon projet.
+Configuration Git Hooks
+L’exécution des git hooks se fait grâce au package Husky, dont la configuration de lancement se trouve dans le fichier package.json. Vous trouverez deux étapes :
+
+Le “pre-commit”, qui exécute simplement prettier sur tous les fichiers modifiés.
+Le “prepare-commit-msg”, qui ajoute les initiales de l’auteur du commit prepare-commit-msg.sh.
+Vous pouvez éventuellement modifier les branches pour lesquelles ces étapes doivent être exécutées :
+
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+BRANCHES_TO_SKIP=(develop)
+fi
+Configuration dans les fichiers JSON
+Recherchez le mot-clé XXXXXXX dans les fichiers de configuration et remplacez-le par les valeurs appropriées :
+
+Dans cypress.json, remplacez “projectId” par “ID_PROJET_DASHBOARD_CYPRESS”.
+Dans develop.json, mettez à jour l’URL pour correspondre à votre environnement de développement.
+Configuration dans les fichiers de code
+Recherchez le mot-clé FIXME dans les fichiers de code et remplacez-le par les valeurs appropriées :
+
+Dans le fichier command.ts, effectuez les ajustements nécessaires pour les URL cibles en fonction de votre environnement.
+Dans le fichier waitLoader.ts, adaptez simplement le sélecteur correspondant au chargement.
+Configuration des badges
+N’oubliez pas de mettre à jour les liens des badges dans l’en-tête de ce fichier README.md pour visualiser rapidement l
+
+Markdown 5886 bytes 738 words 123 lines Ln 101, Col 7HTML 4019 characters 684 words 74 paragraphs
